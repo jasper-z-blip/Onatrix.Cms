@@ -1,0 +1,14 @@
+﻿@{
+    string L(string f) => Url.Content($"~/images/{f}"); //Hjälp ChatGPT
+}
+
+<section class="bg-white min-h-[100px] pt-8 pb-4 relative z-[1]">
+    <div class="page-container flex justify-between items-center gap-8 flex-wrap pb-6 pt-24">
+        <img src="@L("logo-1.svg")" alt="Logotype" />
+        <img src="@L("logo-2.svg")" alt="Logotype" />
+        <img src="@L("logo-3.svg")" alt="Logotype" />
+        <img src="@L("logo-4.svg")" alt="Logotype" />
+        <img src="@L("logo-5.svg")" alt="Logotype" />
+        <img src="@L("logo-6.svg")" alt="Logotype" />
+    </div>
+</section>

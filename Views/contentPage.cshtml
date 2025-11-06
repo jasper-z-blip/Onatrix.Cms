@@ -1,0 +1,15 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = null;
+}
+
+<section class="container mx-auto py-16 text-center">
+    <h1 class="text-4xl font-bold mb-4">
+        @Model.Value("pageTitle")
+    </h1>
+
+    <div class="prose mx-auto text-lg">
+        @Model.Value("bodyText")
+    </div>
+</section>

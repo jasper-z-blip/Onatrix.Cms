@@ -1,0 +1,30 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@(ViewData["Title"] ?? Model?.Name ?? "Onatrix") | Onatrix</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+</head>
+
+<body class="flex flex-col min-h-screen font-sans">
+
+    @await Html.PartialAsync("Partials/_Header")
+
+    <main class="flex-grow">
+        @RenderBody()
+    </main>
+
+    @await Html.PartialAsync("Partials/_Footer")
+
+</body>
+</html>

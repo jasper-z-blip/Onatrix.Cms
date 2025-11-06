@@ -1,0 +1,12 @@
+﻿@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "Shared/_Layout.cshtml";
+}
+
+@await Html.PartialAsync("Partials/Home/_Hero")
+@await Html.PartialAsync("Partials/Home/_About")
+@await Html.PartialAsync("Partials/Home/_Services")
+@await Html.PartialAsync("Partials/Home/_Clients")
+@await Html.PartialAsync("Partials/Home/_Success")
+@await Html.PartialAsync("Partials/Home/_Logos")
