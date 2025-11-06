@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+<section class="bg-bg-lightgrey h-[240px]">
+    <div class="page-container text-center">
+        <h2 class="pt-12 pb-3">
+            @(!string.IsNullOrWhiteSpace(Model?.Name) ? Model.Name : "About Us")
+        </h2>
+
+        <div class="flex justify-center gap-3">
+            <a href="/" class="hover:underline">Home</a>
+            <span>&gt;</span>
+            <span>About</span>
+        </div>
+    </div>
+</section>
