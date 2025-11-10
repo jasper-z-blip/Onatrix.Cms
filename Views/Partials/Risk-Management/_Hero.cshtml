@@ -1,0 +1,34 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var root = Model.Root();
+
+    // Find the Services and Home nodes (adjust aliases/names if yours differ) //hjälp chatGPT glöm inte kommentera vad
+    IPublishedContent? home =
+        root?.Children?.FirstOrDefault(x =>
+            x.ContentType.Alias.Equals("home", StringComparison.OrdinalIgnoreCase) ||
+            x.Name.Equals("Home", StringComparison.OrdinalIgnoreCase));
+
+    IPublishedContent? services =
+        root?.Descendants()?.FirstOrDefault(x =>
+            x.ContentType.Alias.Equals("services", StringComparison.OrdinalIgnoreCase) ||
+            x.Name.Equals("Services", StringComparison.OrdinalIgnoreCase));
+
+    var homeUrl = home?.Url() ?? "/";
+    var servicesUrl = services?.Url() ?? "/services";
+}
+
+<section class="bg-bg-lightgrey h-[240px]">
+    <div class="page-container text-center">
+        <h2 class="pt-12 pb-3">Risk Management</h2>
+
+        <nav aria-label="Breadcrumb" class="flex justify-center gap-3">
+            <a href="@homeUrl" class="hover:underline">Home</a>
+            <span>&gt;</span>
+            <a href="@servicesUrl" class="hover:underline">Services</a>
+            <span>&gt;</span>
+            <span>Risk Management</span>
+        </nav>
+    </div>
+</section>
