@@ -1,0 +1,19 @@
+﻿@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var home = Model.Root();
+    var title = !string.IsNullOrWhiteSpace(Model?.Name) ? Model.Name : "Our Services";
+}
+
+<section class="bg-bg-lightgrey h-[240px]">
+    <div class="page-container text-center">
+        <h2 class="pt-12 pb-3">@title</h2>
+
+        <div class="flex justify-center gap-3">
+            <a href="@(home?.Url() ?? "/")" class="hover:underline">Home</a>
+            <span>&gt;</span>
+            <span>@title</span>
+        </div>
+    </div>
+</section>

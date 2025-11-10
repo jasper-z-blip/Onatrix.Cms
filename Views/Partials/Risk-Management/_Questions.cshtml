@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+<section>
+    <div class="page-container">
+        <div class="text-dark-grey">
+            <h3>Have a question?</h3>
+        </div>
+
+        <form method="post" action="#" class="pt-2 pb-12">
+            <div class="flex gap-4 pt-2 pb-4 flex-col sm:flex-row">
+                <label class="sr-only" for="rq-name">Name</label>
+                <input id="rq-name" name="name" type="text" class="input-box" placeholder="Name" required />
+
+                <label class="sr-only" for="rq-email">Email</label>
+                <input id="rq-email" name="email" type="email" class="input-box" placeholder="Email" required />
+            </div>
+
+            <div>
+                <label class="sr-only" for="rq-question">Question</label>
+                <textarea id="rq-question" name="question" class="input-box min-h-[200px]" placeholder="Question" required></textarea>
+            </div>
+
+            <div class="pt-4">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</section>

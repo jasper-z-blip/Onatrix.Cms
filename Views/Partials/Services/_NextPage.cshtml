@@ -1,0 +1,62 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var root = Model.Root();
+    IPublishedContent? services =
+        root?.Descendants()
+            .FirstOrDefault(x => x.ContentType.Alias.Equals("services", StringComparison.OrdinalIgnoreCase)
+                              || x.Name.Equals("Services", StringComparison.OrdinalIgnoreCase));
+
+    IPublishedContent? riskManagement =
+        root?.Descendants()
+            .FirstOrDefault(x => x.ContentType.Alias.Equals("riskManagement", StringComparison.OrdinalIgnoreCase)
+                              || x.Name.Equals("Risk Management", StringComparison.OrdinalIgnoreCase));
+
+    // URL-fallback om noderna inte hittas, HJÄLP chatGPT
+    var page1Url = services?.Url() ?? "/services";
+    var page2Url = riskManagement?.Url() ?? "/services/risk-management";
+
+    // Jag har tänkt ngt felhär för det ändras inte till sida 2? KOLLA sen!!
+    var active = (riskManagement != null && Model.Id == riskManagement.Id) ? 2 : 1;
+
+    string activeClass = "text-dark-grey font-bold border-b-2 border-dark-grey pb-1";
+    string linkClass = "text-dark-grey hover:text-light-grey transition";
+    string disabledClass = "text-light-grey cursor-not-allowed";
+}
+
+@* Eller är det här jag tänkt fel? Kom ihåg lite hjälp av chatGPT *@
+<section>
+    <div class="page-container flex justify-center items-center gap-4 pt-6 pb-12">
+
+        @if (active == 1)
+        {
+            <span class="@disabledClass">Prev</span>
+        }
+        else
+        {
+            <a href="@page1Url" class="@linkClass">Prev</a>
+        }
+
+        @if (active == 1)
+        {
+            <span class="@activeClass">1</span>
+            <a href="@page2Url" class="@linkClass">2</a>
+        }
+        else
+        {
+            <a href="@page1Url" class="@linkClass">1</a>
+            <span class="@activeClass">2</span>
+        }
+
+        @if (active == 2)
+        {
+            <span class="@disabledClass">Next</span>
+        }
+        else
+        {
+            <a href="@page2Url" class="@linkClass">Next</a>
+        }
+
+    </div>
+</section>
