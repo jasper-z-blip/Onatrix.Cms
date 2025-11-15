@@ -1,0 +1,31 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
+@model IPublishedElement
+
+@{
+    var logos = Model.Value<IEnumerable<IPublishedContent>>("logosImage") ?? Enumerable.Empty<IPublishedContent>();
+    // Denna kodrad skriven rakt från chatGPT, funktion för att hämta fallback-bilder från wwwroot/images.
+    string L(string f) => Url.Content($"~/images/{f}");
+}
+
+<section class="bg-white min-h-[100px] pt-8 pb-4 relative z-[1]">
+    <div class="page-container flex justify-between items-center gap-8 flex-wrap pb-6 pt-24">
+        @if (logos.Any())
+        {
+            foreach (var img in logos)
+            {
+                var url = img?.Url() ?? "";
+                <img src="@url" alt="@img?.Name" />
+            }
+        }
+        else
+        {
+            <img src="@L("logo-1.svg")" alt="Logotype" />
+            <img src="@L("logo-2.svg")" alt="Logotype" />
+            <img src="@L("logo-3.svg")" alt="Logotype" />
+            <img src="@L("logo-4.svg")" alt="Logotype" />
+            <img src="@L("logo-5.svg")" alt="Logotype" />
+            <img src="@L("logo-6.svg")" alt="Logotype" />
+        }
+    </div>
+</section>

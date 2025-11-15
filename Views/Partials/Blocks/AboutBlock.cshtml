@@ -1,0 +1,63 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
+@model IPublishedElement
+
+@{
+    var eyebrow = Model.Value<string>("aboutEyebrow");
+    var title = Model.Value<string>("aboutTitle");
+    var intro = Model.Value<string>("aboutIntro");
+    var body = Model.Value<string>("aboutBody");
+    var signatureImg = Model.Value<IPublishedContent>("aboutImage");
+    var signatureUrl = signatureImg != null ? signatureImg.Url() : null;
+    var ceoText = Model.Value<string>("aboutCEO");
+}
+
+<section class="page-about py-16">
+    <div class="page-container">
+        <div class="about-hero grid grid-cols-2 gap-8 items-center">
+            <div>
+                @if (!string.IsNullOrWhiteSpace(eyebrow))
+                {
+                    <p class="eyebrow">@eyebrow</p>
+                }
+
+                <h2>@(title ?? "-")</h2>
+
+                @if (!string.IsNullOrWhiteSpace(intro))
+                {
+                    <div class="intro mt-4">@Html.Raw(intro)</div>
+                }
+
+                @*
+                  Hjälp av chatGPT. Jag använder Html.Raw() för att texten som redaktören skriver i Umbraco kan innehålla HTML,
+                  t.ex. fet stil eller radbrytningar. Utan Html.Raw() skulle dessa visas som vanlig text och inte formateras.
+                *@
+
+                @if (!string.IsNullOrWhiteSpace(body))
+                {
+                    <div class="mt-6">@Html.Raw(body)</div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(signatureUrl) || !string.IsNullOrWhiteSpace(ceoText))
+                {
+                    <div class="mt-8">
+                        @if (!string.IsNullOrWhiteSpace(signatureUrl))
+                        {
+                            <img src="@signatureUrl" alt="CEO signature" class="inline-block" />
+                        }
+                        @if (!string.IsNullOrWhiteSpace(ceoText))
+                        {
+                            <div class="mt-2 text-sm">
+                                @ceoText
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <div>
+                <div class="w-full h-64 bg-gray-100"></div>
+            </div>
+        </div>
+    </div>
+</section>

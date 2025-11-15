@@ -4,7 +4,7 @@
 @{
     var root = Model.Root();
 
-    // Find the Services and Home nodes (adjust aliases/names if yours differ) //hjälp chatGPT glöm inte kommentera vad
+    // Letar upp Home-sidan genom att matcha alias eller namn, gör breadcrummen flexibel även om sidans namn ändrs.
     IPublishedContent? home =
         root?.Children?.FirstOrDefault(x =>
             x.ContentType.Alias.Equals("home", StringComparison.OrdinalIgnoreCase) ||

@@ -1,0 +1,25 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IPublishedElement>
+
+@{
+    var title = Model.Value<string>("heroTitle");
+    var subtitle = Model.Value<string>("heroSubtitle");
+    var btnText = Model.Value<string>("heroButtonText");
+    var img = Model.Value<IPublishedContent>("heroImage");
+    var imgUrl = img != null ? img.Url() : Url.Content("~/images/Hero-img.svg");
+}
+
+<section class="relative bg-cover bg-center min-h-[552px]" style="background-image:url('@imgUrl')">
+    <div class="relative page-container pt-16 pb-24">
+        <h1>@(title ?? "—")</h1>
+
+        @if (!string.IsNullOrWhiteSpace(subtitle))
+        {
+            <p class="pt-8 text-light-grey max-w-[520px]">@Html.Raw(subtitle)</p>
+        }
+
+        <div class="pt-6">
+            <a href="/contact" class="btn btn-primary">@(!string.IsNullOrWhiteSpace(btnText) ? btnText : "Contact us")</a>
+        </div>
+    </div>
+</section>

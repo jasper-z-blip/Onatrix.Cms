@@ -1,12 +1,36 @@
-﻿@using Umbraco.Extensions
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
 @{
     Layout = "Shared/_Layout.cshtml";
-    ViewData["Title"] = "About";
+    var sections = Model.Value<IEnumerable<BlockListItem>>("pageSections") ?? Enumerable.Empty<BlockListItem>();
 }
 
 @await Html.PartialAsync("Partials/About/_Hero")
-@await Html.PartialAsync("Partials/About/_Intro")
-@await Html.PartialAsync("Partials/About/_Trusted")
+
+@if (sections.Any())
+{
+    foreach (var block in sections)
+    {
+        var alias = block.Content?.ContentType?.Alias ?? string.Empty;
+
+        if (alias.Equals("aboutIntroBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/AboutIntroBlock", block)
+        }
+        else if (alias.Equals("aboutTrustedBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/AboutTrustedBlock", block.Content)
+        }
+    }
+}
+else
+{
+    @await Html.PartialAsync("Partials/About/_Intro")
+    @await Html.PartialAsync("Partials/About/_Trusted")
+}
+
 @await Html.PartialAsync("Partials/About/_Team")
 @await Html.PartialAsync("Partials/About/_Contact")
