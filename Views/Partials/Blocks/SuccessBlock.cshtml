@@ -1,0 +1,58 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
+@model IPublishedElement
+
+@{
+    var stat1Num = Model.Value<string>("successStatistic1Number");
+    var stat1Text = Model.Value<string>("successStatistic1Text");
+
+    var stat2Num = Model.Value<string>("successStatistic2Number");
+    var stat2Text = Model.Value<string>("successStatistic2Text");
+
+    var stat3Num = Model.Value<string>("successStatistic3Number");
+    var stat3Text = Model.Value<string>("successStatistic3Text");
+
+    var peopleImg = Model.Value<IPublishedContent>("successPeopleImage");
+    var peopleUrl = peopleImg != null ? peopleImg.Url() : Url.Content("~/images/People.svg");
+
+    var bgImg = Model.Value<IPublishedContent>("successBgImage");
+    var bgUrl = bgImg != null ? bgImg.Url() : Url.Content("~/images/DotMap.svg");
+}
+
+<section class="relative min-h-[838px] bg-bg-darkgreen text-center bg-no-repeat bg-center bg-contain"
+         style="background-image: url('@bgUrl');">
+    <div class="page-container flex flex-col items-center">
+        <p class="eyebrow pt-24">SUCCESS STORIES</p>
+        <h2 class="text-light-beige mt-2">Success story</h2>
+
+        <div class="mt-8 flex justify-center items-start gap-12">
+            <div>
+                <p class="eyebrow-s text-[75px]">@(!string.IsNullOrWhiteSpace(stat1Num) ? stat1Num : "—")</p>
+                @if (!string.IsNullOrWhiteSpace(stat1Text))
+                {
+                    <p class="text-white">@Html.Raw(stat1Text)</p>
+                }
+            </div>
+
+            <div>
+                <p class="eyebrow-s text-[75px]">@(!string.IsNullOrWhiteSpace(stat2Num) ? stat2Num : "—")</p>
+                @if (!string.IsNullOrWhiteSpace(stat2Text))
+                {
+                    <p class="text-white">@Html.Raw(stat2Text)</p>
+                }
+            </div>
+
+            <div>
+                <p class="eyebrow-s text-[75px]">@(!string.IsNullOrWhiteSpace(stat3Num) ? stat3Num : "—")</p>
+                @if (!string.IsNullOrWhiteSpace(stat3Text))
+                {
+                    <p class="text-white">@Html.Raw(stat3Text)</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute left-1/2 -translate-x-1/2 bottom-[-100px] z-10">
+        <img src="@peopleUrl" alt="People" />
+    </div>
+</section>

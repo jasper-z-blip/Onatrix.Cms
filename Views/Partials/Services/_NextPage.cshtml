@@ -13,7 +13,7 @@
             .FirstOrDefault(x => x.ContentType.Alias.Equals("riskManagement", StringComparison.OrdinalIgnoreCase)
                               || x.Name.Equals("Risk Management", StringComparison.OrdinalIgnoreCase));
 
-    // URL-fallback om noderna inte hittas, HJÄLP chatGPT
+    @* Reserv-URL: används om Umbraco inte hittar sidan *@
     var page1Url = services?.Url() ?? "/services";
     var page2Url = riskManagement?.Url() ?? "/services/risk-management";
 

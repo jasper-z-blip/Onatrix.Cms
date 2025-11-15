@@ -1,0 +1,41 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@model IPublishedElement
+
+@{
+    var eyebrow = Model.Value<string>("trustedEyebrow");
+    var title = Model.Value<string>("trustedTitle");
+    var text = Model.Value<string>("trustedText");
+    var starsImg = Model.Value<IPublishedContent>("trustedImage");
+    var person = Model.Value<string>("trustedPerson");
+    var company = Model.Value<string>("trustedCompany");
+    var image = Model.Value<IPublishedContent>("trustedImage2");
+
+    var starsUrl = starsImg?.Url() ?? "/images/IconStar.svg";
+    var imageUrl = image?.Url() ?? "/images/OfficeMan.svg";
+}
+
+<section class="bg-bg-lightgrey">
+    <div class="page-container flex gap-8 items-start py-12">
+        <div class="max-w-[640px]">
+            @if (!string.IsNullOrEmpty(eyebrow))
+            {
+                <p class="eyebrow">@eyebrow</p>
+            }
+
+            <h2>@title</h2>
+
+            <p class="text-light-grey pt-4">@Html.Raw(text)</p>
+
+            <div class="flex pt-2" aria-label="5 star rating">
+                <img src="@starsUrl" alt="Rating stars" />
+            </div>
+
+            <p class="text-dark-grey pt-2">@person</p>
+            <p class="text-dark-grey text-[20px]">@company</p>
+        </div>
+
+        <div class="shrink-0">
+            <img src="@imageUrl" alt="Trusted person image" />
+        </div>
+    </div>
+</section>

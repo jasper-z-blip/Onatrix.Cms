@@ -1,0 +1,34 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
+@model IPublishedElement
+
+@{
+    var eyebrow = Model.Value<string>("serviceEyebrow");
+    var title = Model.Value<string>("serviceTitle");
+    var items = Model.Value<string>("serviceItems");
+}
+
+<section class="bg-bg-lightgrey pt-8 pb-12">
+    <div class="page-container text-center">
+
+        @if (!string.IsNullOrWhiteSpace(eyebrow))
+        {
+            <p class="eyebrow">@eyebrow</p>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(title))
+        {
+            <h2>@title</h2>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(items))
+        {
+            <div class="mt-4 max-w-[800px] mx-auto">
+                @Html.Raw(items)
+            </div>
+        }
+
+    </div>
+    
+    @await Html.PartialAsync("Partials/Home/Cards/_ServiceCards")
+</section>

@@ -1,0 +1,38 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
+@model IPublishedElement
+
+@{
+    var eyebrow = Model.Value<string>("clientsEyebrow");
+    var title = Model.Value<string>("clientsTitle");
+    var text = Model.Value<string>("clientsText");
+    var btnText = Model.Value<string>("clientsButtonText");
+    var peopleImg = Model.Value<IPublishedContent>("clientsImage");
+    var peopleUrl = peopleImg != null ? peopleImg.Url() : Url.Content("~/images/People.svg");
+    var mapImg = Model.Value<IPublishedContent>("clientsBgImage");
+    var mapUrl = mapImg != null ? mapImg.Url() : Url.Content("~/images/DotMap.svg");
+}
+
+<section>
+    <div class="page-container text-center relative">
+        <img class="w-full" src="@mapUrl" alt="World dot map background" />
+
+        <div class="absolute inset-0 pt-24 z-10">
+            @if (!string.IsNullOrWhiteSpace(eyebrow))
+            {
+                    <p class="eyebrow">@eyebrow</p>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(title))
+            {
+                    <h2>@Html.Raw(title)</h2>
+            }
+
+            <button class="btn btn-primary">@(!string.IsNullOrWhiteSpace(btnText) ? btnText : "Read our story")</button>
+        </div>
+
+        <div>
+            <img src="@peopleUrl" alt="Office people" class="mx-auto" />
+        </div>
+    </div>
+</section>

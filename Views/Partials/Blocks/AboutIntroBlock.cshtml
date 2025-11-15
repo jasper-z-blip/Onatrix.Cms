@@ -1,0 +1,39 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+    var image = content.Value<IPublishedContent>("aboutImage");
+    var founder = content.Value<string>("aboutFounder") ?? "Tina Fox - CEO & Founder at Onatrix";
+    var quote = content.Value<string>("aboutIntroQuote") ?? "“We have over 25 years of experience providing expert financial advice to both businesses and individuals.”";
+    var text = content.Value<string>("aboutIntroText") ?? @"
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae metus a massa lobortis sollicitudin.</p>
+        <p>Morbi commodo, eros quis consequat consequat, orci lacus auctor ligula, ut maximus arcu sapien nec elit. Suspendisse rutrum.</p>";
+}
+
+<section>
+    <div class="page-container flex pt-12 gap-6">
+        <div>
+            @if (image != null)
+            {
+                <img src="@image.Url()" alt="@founder" />
+            }
+            else
+            {
+                <img src="/images/OfficeLady.svg" alt="Woman in office." />
+            }
+
+            <p class="text-dark-grey pt-2 pb-6">@founder</p>
+        </div>
+
+        <div class="text-dark-grey">
+            <p class="pb-6 text-[20px]">@Html.Raw(quote)</p>
+
+            <div class="pb-6">
+                @Html.Raw(text)
+            </div>
+
+        </div>
+    </div>
+</section>

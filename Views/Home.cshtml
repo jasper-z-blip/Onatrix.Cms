@@ -1,12 +1,51 @@
-﻿@using Umbraco.Extensions
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
     Layout = "Shared/_Layout.cshtml";
+    var sections = Model.Value<IEnumerable<BlockListItem>>("pageSections");
 }
 
-@await Html.PartialAsync("Partials/Home/_Hero")
-@await Html.PartialAsync("Partials/Home/_About")
-@await Html.PartialAsync("Partials/Home/_Services")
-@await Html.PartialAsync("Partials/Home/_Clients")
-@await Html.PartialAsync("Partials/Home/_Success")
-@await Html.PartialAsync("Partials/Home/_Logos")
+@if (sections != null && sections.Any())
+{
+    foreach (var block in sections)
+    {
+        var alias = block.Content?.ContentType?.Alias ?? string.Empty;
+
+        if (alias.Equals("heroBlock", System.StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/HeroBlock", block.Content)
+        }
+        else if (alias.Equals("aboutBlock", System.StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/AboutBlock", block.Content)
+        }
+        else if (alias.Equals("serviceBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/ServiceBlock", block.Content)
+        }
+        else if (alias.Equals("clientsBlock", System.StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/ClientsBlock", block.Content)
+        }
+        else if (alias.Equals("successBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/SuccessBlock", block.Content)
+        }
+        else if (alias.Equals("logosBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/LogosBlock", block.Content)
+        }
+
+    }
+}
+else
+{
+    @await Html.PartialAsync("Partials/Home/_Hero")
+    @await Html.PartialAsync("Partials/Home/_About")
+    @await Html.PartialAsync("Partials/Home/_Services")
+    @await Html.PartialAsync("Partials/Home/_Clients")
+    @await Html.PartialAsync("Partials/Home/_Success")
+    @await Html.PartialAsync("Partials/Home/_Logos")
+}
