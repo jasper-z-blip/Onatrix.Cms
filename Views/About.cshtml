@@ -1,16 +1,16 @@
-﻿@using Umbraco.Cms.Core.Models.Blocks
-@using Umbraco.Cms.Core.Models.PublishedContent
+﻿@using System.Linq
+@using Umbraco.Cms.Core.Models.Blocks
 @using Umbraco.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
 @{
     Layout = "Shared/_Layout.cshtml";
-    var sections = Model.Value<IEnumerable<BlockListItem>>("pageSections") ?? Enumerable.Empty<BlockListItem>();
+    var sections = Model.Value<BlockListModel>("pageSections");
 }
 
 @await Html.PartialAsync("Partials/About/_Hero")
 
-@if (sections.Any())
+@if (sections != null && sections.Any())
 {
     foreach (var block in sections)
     {
@@ -26,11 +26,18 @@
         }
     }
 }
-else
-{
-    @await Html.PartialAsync("Partials/About/_Intro")
-    @await Html.PartialAsync("Partials/About/_Trusted")
-}
 
 @await Html.PartialAsync("Partials/About/_Team")
-@await Html.PartialAsync("Partials/About/_Contact")
+
+@if (sections != null && sections.Any())
+{
+    foreach (var block in sections)
+    {
+        var alias = block.Content?.ContentType?.Alias ?? string.Empty;
+
+        if (alias.Equals("aboutContactBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/AboutContactBlock", block.Content)
+        }
+    }
+}

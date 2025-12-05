@@ -1,0 +1,62 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<BlockListItem>
+
+@{
+    var content = Model.Content;
+
+    var topImage = content.Value<IPublishedContent>("rmImage");
+    var topHeading = content.Value<string>("rmHeader");
+    var topBody = content.Value<string>("rmText");
+
+    var secondImage = content.Value<IPublishedContent>("rmImage2");
+    var secondHeading = content.Value<string>("rmHeader2");
+    var secondBody = content.Value<string>("rmText2");
+}
+
+<section class="page-container py-12">
+    <div class="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8">
+
+        <aside class="space-y-6">
+            @await Html.PartialAsync("Partials/Components/sidebarBlock")
+        </aside>
+
+        <article class="space-y-10">
+
+            @if (topImage != null)
+            {
+                <img src="@topImage.Url()" alt="@topHeading" class="w-full rounded-sm object-cover" />
+            }
+
+            @if (!string.IsNullOrWhiteSpace(topHeading))
+            {
+                <h2 class="text-xl font-semibold text-dark-grey">@topHeading</h2>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(topBody))
+            {
+                <div class="text-light-grey leading-7">
+                    @Html.Raw(topBody)
+                </div>
+            }
+
+            @if (secondImage != null)
+            {
+                <img src="@secondImage.Url()" alt="@secondHeading" class="w-full rounded-sm object-cover" />
+            }
+
+            @if (!string.IsNullOrWhiteSpace(secondHeading))
+            {
+                <h3 class="text-lg font-semibold text-dark-grey">@secondHeading</h3>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(secondBody))
+            {
+                <div class="text-light-grey leading-7">
+                    @Html.Raw(secondBody)
+                </div>
+            }
+
+        </article>
+
+    </div>
+</section>

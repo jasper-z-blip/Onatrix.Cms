@@ -1,4 +1,7 @@
 @using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using System.Collections.Generic
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
 <header class="w-full">
     <div class="bg-bg-darkgreen">
@@ -30,19 +33,36 @@
                 <h3>Onatrix</h3>
             </div>
 
+            @{
+                var roots = Umbraco.ContentAtRoot().ToList();
+
+                var menuItems = new List<IPublishedContent>();
+
+                foreach (var root in roots)
+                {
+                    menuItems.Add(root);
+
+                    foreach (var child in root.Children)
+                    {
+                        menuItems.Add(child);
+                    }
+                }
+            }
+
             <nav>
                 <ul class="flex items-center gap-10">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/services">Services</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    @foreach (var item in menuItems)
+                    {
+                        <li>
+                            <a href="@item.Url()">@item.Name</a>
+                        </li>
+                    }
                 </ul>
             </nav>
 
             <div>
                 <img src="~/images/Search.svg" alt="Search" />
             </div>
-
         </div>
     </div>
 </header>

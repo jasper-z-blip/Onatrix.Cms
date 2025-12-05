@@ -1,11 +1,34 @@
-﻿@using Umbraco.Extensions
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
 @{
     Layout = "Shared/_Layout.cshtml";
+
+    var blocks = Model.Value<BlockListModel>("contentBlocks");
 }
 
-@await Html.PartialAsync("Partials/Services/_Header2")
-@await Html.PartialAsync("Partials/Services/_Hero")
-@await Html.PartialAsync("Partials/Home/_Services")
-@await Html.PartialAsync("Partials/Services/_NextPage")
-@await Html.PartialAsync("Partials/About/_Contact")
+@if (blocks != null && blocks.Any())
+{
+    foreach (var block in blocks)
+    {
+        var alias = block.Content.ContentType.Alias;
+
+        if (alias.Equals("heroBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Components/heroBlock", block)
+        }
+        else if (alias.Equals("serviceBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/ServiceBlock", block.Content)
+            @await Html.PartialAsync("Partials/Services/_NextPage")
+        }
+        else if (alias.Equals("aboutContactBlock", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("Partials/Blocks/AboutContactBlock", block.Content)
+        }
+    }
+}
+
+
+
