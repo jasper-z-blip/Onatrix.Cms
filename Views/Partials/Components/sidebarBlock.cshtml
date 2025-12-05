@@ -1,0 +1,31 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models.PublishedContent
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<BlockListItem>
+
+@{
+    var c = Model.Content;
+    var sidebarTitle = c.Value<string>("sidebarTitle");
+    var sidebarText = c.Value<string>("sidebarText");
+    var sidebarImage = c.Value<IPublishedContent>("sidebarImage");
+}
+
+<div class="border border-light-grey/40 rounded-sm overflow-hidden">
+    @if (sidebarImage != null)
+    {
+            <img src="@sidebarImage.Url()" alt="@sidebarTitle" class="w-full object-cover" />
+    }
+
+    <div class="p-4">
+        @if (!string.IsNullOrWhiteSpace(sidebarTitle))
+        {
+                <h3 class="text-dark-grey text-lg font-semibold">@sidebarTitle</h3>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(sidebarText))
+        {
+                <div class="mt-2 text-light-grey text-sm">
+                @Html.Raw(sidebarText)
+                </div>
+        }
+    </div>
+</div>

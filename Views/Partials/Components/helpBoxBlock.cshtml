@@ -1,0 +1,27 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<BlockListItem>
+
+@{
+    var c = Model.Content;
+    var helpTitle = c.Value<string>("helpBoxTitle");
+    var helpText = c.Value<string>("helpBoxText");
+    var placeholder = c.Value<string>("helpBoxEmailPlaceholder") ?? "E-mail address";
+}
+
+<div class="bg-bg-darkgreen text-white rounded-sm p-6 space-y-4">
+    @if (!string.IsNullOrWhiteSpace(helpTitle))
+    {
+            <h4 class="text-[16px] font-semibold">@helpTitle</h4>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(helpText))
+    {
+            <p class="text-sm text-light-beige">@helpText</p>
+    }
+
+    <input type="email"
+           placeholder="@placeholder"
+           class="w-full px-3 py-2 rounded-sm text-dark-grey" />
+
+    <button class="btn btn-primary w-full text-center">Get in touch</button>
+</div>

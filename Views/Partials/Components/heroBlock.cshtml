@@ -1,0 +1,22 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models.PublishedContent
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<BlockListItem>
+
+@{
+    var content = Model.Content;
+    var title = content.Value<string>("heroTitle");
+    var subtitle = content.Value<string>("heroSubtitle");
+    var image = content.Value<IPublishedContent>("heroImage");
+    var buttonText = content.Value<string>("heroButtonText");
+}
+
+<section class="bg-bg-lightgrey h-[240px]">
+    <div class="page-container text-center">
+        <h2 class="pt-12 pb-3">@title</h2>
+
+        @if (!string.IsNullOrWhiteSpace(subtitle))
+        {
+            <p class="text-light-grey">@subtitle</p>
+        }
+    </div>
+</section>

@@ -1,15 +1,24 @@
-﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+﻿@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var root = Model.Root();
+    var home = root?.Children?.FirstOrDefault(x =>
+        x.ContentType.Alias.Equals("home", StringComparison.OrdinalIgnoreCase) ||
+        x.Name.Equals("Home", StringComparison.OrdinalIgnoreCase));
+
+    var homeUrl = home?.Url() ?? "/";
+    var pageName = Model?.Name ?? "";
+}
 
 <section class="bg-bg-lightgrey h-[240px]">
     <div class="page-container text-center">
-        <h2 class="pt-12 pb-3">
-            @(!string.IsNullOrWhiteSpace(Model?.Name) ? Model.Name : "About Us")
-        </h2>
+        <h2 class="pt-12 pb-3">@pageName</h2>
 
         <div class="flex justify-center gap-3">
-            <a href="/" class="hover:underline">Home</a>
+            <a href="@homeUrl" class="hover:underline">@home?.Name</a>
             <span>&gt;</span>
-            <span>About</span>
+            <span>@pageName</span>
         </div>
     </div>
 </section>
